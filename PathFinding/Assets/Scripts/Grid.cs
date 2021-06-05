@@ -1,27 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Grid : MonoBehaviour
 {
-    public Transform player;
+    //public Transform player;
     public int sizeX = 9;
     public int sizeY = 9;
     public float sizeSquare = 1;
     public Node[,] squares;
 
-    public GameObject[,] gameObjects;
-
-    public GameObject[,] gameObjectsNode;
 
     public GameObject square;
     void Start()
     {
-        gameObjectsNode = new GameObject[sizeX, sizeY];
-        squares = new Node[sizeX, sizeY];
         CreateGrid();
-        NodePlayerPosition(player.position);
+        teste();
     }
 
     // Update is called once per frame
@@ -30,16 +26,6 @@ public class Grid : MonoBehaviour
 
     }
 
-    public void NodePlayerPosition(Vector3 position)
-    {
-        int positionX = (int)position.x;
-        int positionY = (int)(position.y * -1);
-
-        Debug.Log(positionX + " " + positionY);
-
-        gameObjectsNode[positionX, positionY].GetComponent<SpriteRenderer>().color = Color.cyan;
-
-    }
 
     void CreateGrid()
     {
@@ -56,26 +42,18 @@ public class Grid : MonoBehaviour
                 
                 if (x == 3 && y == 2 || x == 4 && y == 2 || x == 5 && y==2)
                 {
-                    squares[x, y] = new Node(false, position);
+                    squares[x,y] = new Node(false, position, sq);
+                    //squares[x, y].gameObjectNode.GetComponent<SpriteRenderer>().color = Color.blue;
 
-                    sq.GetComponent<SpriteRenderer>().color = Color.blue;
+
                 }
                 else
                 {
-                    squares[x, y] = new Node(true, position);
+                    squares[x,y] = new Node(true, position, sq);
                 }
 
-                gameObjectsNode[x, y] = sq;
             }
         }
-
-        /*foreach( Node n in squares)
-        {
-            if (n.walkable == false)
-            {
-                print(n.worldPosition.x + " " + n.worldPosition.y); 
-            }
-        } */
 
 
         float gridW = sizeX * sizeSquare;
@@ -84,4 +62,33 @@ public class Grid : MonoBehaviour
         transform.position = new Vector3(-gridW / 2 + sizeSquare, gridH / 2 - sizeSquare / 2, 0);
     }
 
+
+    public Node NodeFromWorlPosition(Vector3 worldposition)
+    {
+        int x = (int)worldposition.x;
+        int y = (int)(worldposition.y * -1);
+        print(x + " " + y);
+        return squares[x, y];
+    }
+
+
+    private void teste()
+    {
+        //Node playerNode = NodeFromWorlPosition(player.position);
+        foreach(Node n in squares)
+        {
+          
+            
+            if (n.walkable == false)
+            {
+
+                n.setSpriteRendererBlue();
+            }
+            /*if (n.worldPosition == playerNode.worldPosition)
+            {
+                n.setSpriteRenderCyan();
+            } */
+        }
+    }
+    
 }
