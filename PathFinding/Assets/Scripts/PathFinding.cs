@@ -38,6 +38,8 @@ public class PathFinding : MonoBehaviour
             {
                 print("Achamos");
             }
+
+
         }
     }
 }

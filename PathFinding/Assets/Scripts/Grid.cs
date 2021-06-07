@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 
 public class Grid : MonoBehaviour
 {
-    //public Transform player;
-    public int sizeX = 9;
-    public int sizeY = 9;
+   public Transform player;
+    public int sizeX = 8;
+    public int sizeY = 5;
     public float sizeSquare = 1;
     public Node[,] squares;
 
@@ -18,12 +18,13 @@ public class Grid : MonoBehaviour
     {
         CreateGrid();
         teste();
+     // neighbourNodes(NodeFromWorlPosition(player.position));
     }
 
     // Update is called once per frame
     void Update()
     {
-
+     neighbourNodes(NodeFromWorlPosition(player.position));
     }
 
 
@@ -35,21 +36,21 @@ public class Grid : MonoBehaviour
             for (int y = 0; y <sizeY; y++)
             {
                 float positionX = x * sizeSquare;
-                float positionY = y * -sizeSquare;
+                float positionY = y * sizeSquare;
                 GameObject sq = Instantiate<GameObject>(square);
                 Vector3 position = new Vector3(positionX, positionY, 0);
                 sq.transform.position = position;
                 
                 if (x == 3 && y == 2 || x == 4 && y == 2 || x == 5 && y==2)
                 {
-                    squares[x,y] = new Node(false, position, sq);
+                    squares[x,y] = new Node(false, position, sq, positionX, positionY);
                     //squares[x, y].gameObjectNode.GetComponent<SpriteRenderer>().color = Color.blue;
 
 
                 }
                 else
                 {
-                    squares[x,y] = new Node(true, position, sq);
+                    squares[x,y] = new Node(true, position, sq, positionX, positionY);
                 }
 
             }
@@ -63,18 +64,40 @@ public class Grid : MonoBehaviour
     }
 
 
+    public List<Node> neighbourNodes (Node currentNode)
+    {
+        List<Node> neighbours = new List<Node>();
+
+        //Left
+        if (currentNode.gridX -1 >=0)
+        {
+            Vector3 vector3 = new Vector3(currentNode.gridX - 1, currentNode.gridY, 0);
+          //print("Vizinho da esquerda é" + vector3);
+
+            neighbours.Add(NodeFromWorlPosition(vector3));
+        }  //Arrumar
+         if (currentNode.gridX + 1 <= sizeX - 1)
+        {
+            Vector3 vector3 = new Vector3(currentNode.gridX +1,currentNode.gridY, 0);
+            print("Vizinho da direita é" + vector3);
+        }
+
+        return neighbours;
+    }
+
+
     public Node NodeFromWorlPosition(Vector3 worldposition)
     {
         int x = (int)worldposition.x;
-        int y = (int)(worldposition.y * -1);
+        //int y = (int)(worldposition.y * -1);
+        int y = (int)worldposition.y;
         print(x + " " + y);
         return squares[x, y];
     }
 
-
-    private void teste()
+    public void teste()
     {
-        //Node playerNode = NodeFromWorlPosition(player.position);
+        Node playerNode = NodeFromWorlPosition(player.position);
         foreach(Node n in squares)
         {
           

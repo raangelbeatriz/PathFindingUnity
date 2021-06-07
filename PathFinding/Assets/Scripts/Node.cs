@@ -8,15 +8,19 @@ public class Node : MonoBehaviour
     public bool walkable;
     public GameObject gameObjectNode;
 
+    public float gridX;
+    public float gridY;
     public int hCost;
     public int gCost;
     public int fCost;
 
-    public Node(bool walkable, Vector3 worldPosition, GameObject gameObjectNode)
+    public Node(bool walkable, Vector3 worldPosition, GameObject gameObjectNode, float gridX, float gridY)
     {
         this.walkable = walkable;
         this.worldPosition = worldPosition;
         this.gameObjectNode = gameObjectNode;
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
 
     public void setSpriteRendererBlue()
