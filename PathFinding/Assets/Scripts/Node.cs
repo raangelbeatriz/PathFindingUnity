@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
     public float gridY;
     public int hCost;
     public int gCost;
-    public int fCost;
+    public Node parent;
 
     public Node(bool walkable, Vector3 worldPosition, GameObject gameObjectNode, float gridX, float gridY)
     {
@@ -23,15 +23,17 @@ public class Node : MonoBehaviour
         this.gridY = gridY;
     }
 
-    public void setSpriteRendererBlue()
+    public int fCost
     {
-        gameObjectNode.GetComponent<SpriteRenderer>().color = Color.blue;
-        
+        get
+        {
+            return gCost + hCost;
+        }
     }
 
-    public void setSpriteRenderCyan()
+    public void setColorSpriteRendered(Color color)
     {
-        gameObjectNode.GetComponent<SpriteRenderer>().color = Color.cyan;
+        gameObjectNode.GetComponent<SpriteRenderer>().color = color;
     }
 
 }
