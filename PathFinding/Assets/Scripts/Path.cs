@@ -8,6 +8,7 @@ public class Path : MonoBehaviour
 
 	public Transform seeker, target;
 	Grid grid;
+	List<Node> path = new List<Node>();
 
 	void Awake()
 	{
@@ -16,11 +17,21 @@ public class Path : MonoBehaviour
 
 	void Update()
 	{
-		FindPath(seeker.position, target.position);
+		//FindPath(seeker.position, target.position);
 	}
 
-	void FindPath(Vector3 startPos, Vector3 targetPos)
+	public void FindPath(Vector3 startPos, Vector3 targetPos)
 	{
+		
+
+		if (path!= null)
+		{
+			foreach (Node n in path)
+			{
+				n.setColorSpriteRendered(Color.red);
+			}
+			path.Clear();
+		}
 		Node startNode = grid.NodeFromWorlPosition(startPos);
 		Node targetNode = grid.NodeFromWorlPosition(targetPos);
 
@@ -72,7 +83,6 @@ public class Path : MonoBehaviour
 
 	void RetracePath(Node startNode, Node endNode)
 	{
-		List<Node> path = new List<Node>();
 		Node currentNode = endNode;
 
 		while (currentNode != startNode)
