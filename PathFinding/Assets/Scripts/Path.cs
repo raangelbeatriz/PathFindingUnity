@@ -35,7 +35,7 @@ public class Path : MonoBehaviour
 		Node targetNode = grid.NodeFromWorlPosition(targetPosition);
 
 		List<Node> openNodes = new List<Node>();
-		HashSet<Node> closedSet = new HashSet<Node>();
+		HashSet<Node> closedNodes = new HashSet<Node>();
 		openNodes.Add(startNode);
 
 		while (openNodes.Count > 0)
@@ -51,7 +51,7 @@ public class Path : MonoBehaviour
 			}
 
 			openNodes.Remove(node);
-			closedSet.Add(node);
+			closedNodes.Add(node);
 
 			if (node == targetNode)
 			{
@@ -61,7 +61,7 @@ public class Path : MonoBehaviour
 
 			foreach (Node neighbour in grid.neighbourNodes(node))
 			{
-				if (!neighbour.walkable || closedSet.Contains(neighbour))
+				if (!neighbour.walkable || closedNodes.Contains(neighbour))
 				{
 					continue;
 				}
