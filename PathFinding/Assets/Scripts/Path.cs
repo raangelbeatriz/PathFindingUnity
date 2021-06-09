@@ -6,7 +6,6 @@ using Packages.Rider.Editor.UnitTesting;
 public class Path : MonoBehaviour
 {
 
-	public Transform seeker, target;
 	Grid grid;
 	List<Node> path = new List<Node>();
 
@@ -20,7 +19,7 @@ public class Path : MonoBehaviour
 		//FindPath(seeker.position, target.position);
 	}
 
-	public void FindPath(Vector3 startPos, Vector3 targetPos)
+	public void FindPath(Vector3 startPosition, Vector3 targetPosition)
 	{
 		
 
@@ -32,26 +31,26 @@ public class Path : MonoBehaviour
 			}
 			path.Clear();
 		}
-		Node startNode = grid.NodeFromWorlPosition(startPos);
-		Node targetNode = grid.NodeFromWorlPosition(targetPos);
+		Node startNode = grid.NodeFromWorlPosition(startPosition);
+		Node targetNode = grid.NodeFromWorlPosition(targetPosition);
 
-		List<Node> openSet = new List<Node>();
+		List<Node> openNodes = new List<Node>();
 		HashSet<Node> closedSet = new HashSet<Node>();
-		openSet.Add(startNode);
+		openNodes.Add(startNode);
 
-		while (openSet.Count > 0)
+		while (openNodes.Count > 0)
 		{
-			Node node = openSet[0];
-			for (int i = 1; i < openSet.Count; i++)
+			Node node = openNodes[0];
+			for (int i = 1; i < openNodes.Count; i++)
 			{
-				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost)
+				if (openNodes[i].getfCost() < node.getfCost() || openNodes[i].getfCost() == node.getfCost())
 				{
-					if (openSet[i].hCost < node.hCost)
-						node = openSet[i];
+					if (openNodes[i].hCost < node.hCost)
+						node = openNodes[i];
 				}
 			}
 
-			openSet.Remove(node);
+			openNodes.Remove(node);
 			closedSet.Add(node);
 
 			if (node == targetNode)
@@ -68,14 +67,14 @@ public class Path : MonoBehaviour
 				}
 
 				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
-				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+				if (newCostToNeighbour < neighbour.gCost || !openNodes.Contains(neighbour))
 				{
 					neighbour.gCost = newCostToNeighbour;
 					neighbour.hCost = GetDistance(neighbour, targetNode);
 					neighbour.parent = node;
 
-					if (!openSet.Contains(neighbour))
-						openSet.Add(neighbour);
+					if (!openNodes.Contains(neighbour))
+						openNodes.Add(neighbour);
 				}
 			}
 		}
@@ -105,7 +104,13 @@ public class Path : MonoBehaviour
 		int dstY = Mathf.Abs((int)nodeA.gridY - (int)nodeB.gridY);
 
 		if (dstX > dstY)
+		{
 			return 14 * dstY + 10 * (dstX - dstY);
-		return 14 * dstX + 10 * (dstY - dstX);
+		}
+		else
+		{
+			return 14 * dstX + 10 * (dstY - dstX);
+		}
+		
 	}
 }

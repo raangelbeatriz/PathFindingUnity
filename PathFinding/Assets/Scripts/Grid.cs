@@ -23,7 +23,6 @@ public class Grid : MonoBehaviour
     void Update()
     {
         
-        //teste();
     }
 
 
@@ -49,7 +48,7 @@ public class Grid : MonoBehaviour
                     squares[x, y].gameObjectNode = sq;
                     squares[x, y].gridX = positionX;
                     squares[x, y].gridY = positionY;
-                    //squares[x, y].gameObjectNode.GetComponent<SpriteRenderer>().color = Color.blue;
+                   
 
                 }
                 else
@@ -160,7 +159,6 @@ public class Grid : MonoBehaviour
     public List<Node> path;
     public void teste()
     {
-        //Node playerNode = NodeFromWorlPosition(player.position);
         foreach(Node n in squares)
         {  
             if (n.walkable == false)

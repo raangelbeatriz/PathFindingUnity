@@ -12,7 +12,10 @@ public class Node : MonoBehaviour
     public float gridY;
     public int hCost;
     public int gCost;
+    public int fCost;
+    public int getFcost;
     public Node parent;
+    
 
     public Node(bool walkable, Vector3 worldPosition, GameObject gameObjectNode, float gridX, float gridY)
     {
@@ -23,12 +26,11 @@ public class Node : MonoBehaviour
         this.gridY = gridY;
     }
 
-    public int fCost
+    public int getfCost()
     {
-        get
-        {
-            return gCost + hCost;
-        }
+        fCost = gCost + hCost;
+
+        return fCost;
     }
 
     public void setColorSpriteRendered(Color color)
