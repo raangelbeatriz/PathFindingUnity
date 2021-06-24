@@ -7,10 +7,10 @@ This project was made following a tutorial series in the Sebastian Lague channel
 
 # How it works
   - Components:
-    - Player represented by the yellow circle
+    - Player represented by the white circle
     - Obstacles represented by the blue squares
     - Walkable areas in the grid represented by the red squares
-    - Target position represented by the position of the white circle
+    - Target position represented by the position of the yellow circle
     - Best path from player to target position represented by the black squares
     
     ![PathFindingUnity](PathFinding/Assets/images/pathfinding.png)
