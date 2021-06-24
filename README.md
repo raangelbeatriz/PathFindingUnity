@@ -13,6 +13,7 @@ This project was made following a tutorial series in the Sebastian Lague channel
     - Target position represented by the position of the white circle
     - Best path from player to target position represented by the black squares
     
+    ![PathFindingUnity](PathFinding/Assets/images/pathfinding.png)
 To find the best path from Node A, player position, to Node B, target position, the player must drag the white circle into a walkable area. If the position is walkable then the algorithm will find the shortest path until Node B, and will represent the path changing the color of previous red squares to black.
 
 # What I've learned
